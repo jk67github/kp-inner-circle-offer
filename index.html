@@ -1,0 +1,717 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>KP Inner Circle</title>
+  <meta name="description" content="KP Inner Circle. Pour fondateurs d’expertise à 1M€ par an minimum. Office hour hebdomadaire avec Jeremy Kohlmann et accès prioritaire aux événements KP." />
+  <style>
+    :root {
+      --white: #ffffff;
+      --cream: #fff7e8;
+      --ink: #08080f;
+      --muted: #5c5c66;
+      --lavender: #9c88ff;
+      --mint: #66d79a;
+      --blue: #22c6e3;
+      --coral: #ff6a5f;
+      --lemon: #ffd54f;
+      --line: rgba(8, 8, 15, 0.12);
+      --soft: rgba(8, 8, 15, 0.055);
+      --max: 1120px;
+      --radius: 28px;
+    }
+
+    * { box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      margin: 0;
+      font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 82% 10%, rgba(156, 136, 255, 0.22), transparent 30%),
+        radial-gradient(circle at 15% 0%, rgba(34, 198, 227, 0.16), transparent 26%),
+        linear-gradient(180deg, #ffffff 0%, #fffaf0 54%, #ffffff 100%);
+      line-height: 1.45;
+    }
+
+    a { color: inherit; text-decoration: none; }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      backdrop-filter: blur(18px);
+      background: rgba(255, 255, 255, 0.78);
+      border-bottom: 1px solid rgba(8, 8, 15, 0.08);
+    }
+
+    .topbar-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 16px 22px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 18px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-weight: 900;
+      letter-spacing: -0.04em;
+    }
+
+    .logo {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      background: var(--ink);
+      color: white;
+      display: grid;
+      place-items: center;
+      font-size: 15px;
+      font-weight: 950;
+      letter-spacing: -0.08em;
+    }
+
+    .nav {
+      display: flex;
+      gap: 22px;
+      align-items: center;
+      font-size: 14px;
+      color: rgba(8, 8, 15, 0.72);
+      font-weight: 700;
+    }
+
+    .nav a:hover { color: var(--ink); }
+
+    .button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 999px;
+      padding: 14px 20px;
+      background: var(--ink);
+      color: white;
+      font-weight: 900;
+      letter-spacing: -0.02em;
+      border: 1px solid var(--ink);
+      box-shadow: 0 14px 34px rgba(8, 8, 15, 0.18);
+      transition: transform .18s ease, box-shadow .18s ease;
+      white-space: nowrap;
+    }
+
+    .button:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 18px 42px rgba(8, 8, 15, 0.22);
+    }
+
+    .button.secondary {
+      background: white;
+      color: var(--ink);
+      box-shadow: none;
+      border-color: rgba(8, 8, 15, 0.14);
+    }
+
+    main { overflow: hidden; }
+
+    section {
+      max-width: var(--max);
+      margin: 0 auto;
+      padding: 92px 22px;
+    }
+
+    .hero {
+      padding-top: 96px;
+      padding-bottom: 84px;
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: 48px;
+      align-items: center;
+    }
+
+    .kicker {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      text-transform: uppercase;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      font-weight: 950;
+      color: var(--ink);
+      margin-bottom: 20px;
+    }
+
+    .kicker::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      border-radius: 999px;
+      background: var(--lavender);
+      box-shadow: 0 0 0 6px rgba(156, 136, 255, 0.15);
+    }
+
+    h1, h2, h3, p { margin-top: 0; }
+
+    h1 {
+      font-size: clamp(56px, 8.4vw, 104px);
+      line-height: 0.88;
+      letter-spacing: -0.085em;
+      font-weight: 950;
+      margin-bottom: 26px;
+    }
+
+    .hero-lead {
+      font-size: clamp(21px, 2.6vw, 30px);
+      line-height: 1.14;
+      letter-spacing: -0.045em;
+      font-weight: 850;
+      max-width: 730px;
+      margin-bottom: 26px;
+    }
+
+    .hero-copy {
+      max-width: 630px;
+      font-size: 18px;
+      color: rgba(8, 8, 15, 0.72);
+      margin-bottom: 34px;
+    }
+
+    .hero-actions { display: flex; gap: 14px; flex-wrap: wrap; }
+
+    .proof-card {
+      border-radius: 34px;
+      background: rgba(255, 255, 255, 0.78);
+      border: 1px solid rgba(8, 8, 15, 0.10);
+      box-shadow: 0 34px 90px rgba(8, 8, 15, 0.12);
+      padding: 22px;
+      position: relative;
+    }
+
+    .proof-inner {
+      border-radius: 26px;
+      background: var(--ink);
+      color: white;
+      padding: 34px;
+      min-height: 520px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .proof-inner::before {
+      content: "";
+      position: absolute;
+      inset: -80px -80px auto auto;
+      width: 220px;
+      height: 220px;
+      background: radial-gradient(circle, rgba(34,198,227,0.38), transparent 66%);
+    }
+
+    .metric {
+      position: relative;
+      display: grid;
+      gap: 20px;
+    }
+
+    .metric-row {
+      padding: 22px;
+      border-radius: 22px;
+      background: rgba(255, 255, 255, 0.08);
+      border: 1px solid rgba(255, 255, 255, 0.12);
+    }
+
+    .metric-row strong {
+      display: block;
+      font-size: 40px;
+      line-height: 0.95;
+      letter-spacing: -0.06em;
+      margin-bottom: 6px;
+    }
+
+    .metric-row span {
+      color: rgba(255,255,255,0.72);
+      font-weight: 750;
+    }
+
+    .tag {
+      display: inline-flex;
+      width: fit-content;
+      border-radius: 999px;
+      padding: 10px 14px;
+      background: var(--cream);
+      color: var(--ink);
+      font-size: 12px;
+      font-weight: 950;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 42px;
+      align-items: start;
+      margin-bottom: 42px;
+    }
+
+    h2 {
+      font-size: clamp(38px, 5vw, 72px);
+      line-height: 0.95;
+      letter-spacing: -0.075em;
+      font-weight: 950;
+      margin-bottom: 0;
+    }
+
+    .section-head p, .large-p {
+      font-size: 21px;
+      line-height: 1.28;
+      letter-spacing: -0.035em;
+      color: rgba(8, 8, 15, 0.72);
+      margin-bottom: 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+
+    .card {
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.82);
+      border: 1px solid rgba(8, 8, 15, 0.10);
+      padding: 28px;
+      box-shadow: 0 20px 52px rgba(8, 8, 15, 0.055);
+    }
+
+    .card.dark {
+      background: var(--ink);
+      color: white;
+    }
+
+    .card h3 {
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: -0.055em;
+      font-weight: 950;
+      margin-bottom: 14px;
+    }
+
+    .card p, .card li {
+      color: rgba(8, 8, 15, 0.68);
+      font-size: 16.5px;
+    }
+
+    .card.dark p, .card.dark li { color: rgba(255,255,255,0.70); }
+
+    ul {
+      margin: 0;
+      padding: 0;
+      list-style: none;
+      display: grid;
+      gap: 12px;
+    }
+
+    li {
+      display: flex;
+      gap: 10px;
+      align-items: flex-start;
+    }
+
+    li::before {
+      content: "";
+      flex: 0 0 9px;
+      width: 9px;
+      height: 9px;
+      border-radius: 999px;
+      background: var(--lavender);
+      margin-top: 8px;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .diagnostic {
+      background: var(--ink);
+      color: white;
+      border-radius: 38px;
+      padding: 42px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .diagnostic h2 { color: white; }
+
+    .diag-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+    }
+
+    .diag-box {
+      border-radius: 24px;
+      padding: 24px;
+      background: rgba(255,255,255,0.075);
+      border: 1px solid rgba(255,255,255,0.12);
+    }
+
+    .diag-box strong {
+      display: block;
+      margin-bottom: 12px;
+      color: white;
+      font-size: 18px;
+      letter-spacing: -0.03em;
+    }
+
+    .diag-box p { color: rgba(255,255,255,0.70); margin: 0; }
+
+    .price-wrap {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .price {
+      border-radius: 34px;
+      padding: 34px;
+      background: white;
+      border: 1px solid rgba(8,8,15,0.10);
+      box-shadow: 0 24px 70px rgba(8,8,15,0.07);
+    }
+
+    .price.featured {
+      background: var(--ink);
+      color: white;
+      transform: translateY(-10px);
+    }
+
+    .price small {
+      display: inline-flex;
+      border-radius: 999px;
+      padding: 9px 12px;
+      background: var(--cream);
+      color: var(--ink);
+      text-transform: uppercase;
+      font-size: 11px;
+      font-weight: 950;
+      letter-spacing: 0.09em;
+      margin-bottom: 22px;
+    }
+
+    .price.featured small { background: var(--mint); }
+
+    .price h3 {
+      font-size: clamp(42px, 5vw, 64px);
+      line-height: 0.9;
+      letter-spacing: -0.075em;
+      margin-bottom: 14px;
+      font-weight: 950;
+    }
+
+    .price p { color: rgba(8,8,15,0.68); margin-bottom: 0; }
+    .price.featured p { color: rgba(255,255,255,0.72); }
+
+    .form-block {
+      border-radius: 38px;
+      padding: 44px;
+      background: var(--cream);
+      border: 1px solid rgba(8,8,15,0.10);
+      display: grid;
+      grid-template-columns: 0.9fr 1.1fr;
+      gap: 38px;
+      align-items: start;
+    }
+
+    .questions {
+      display: grid;
+      gap: 12px;
+      counter-reset: q;
+    }
+
+    .question {
+      counter-increment: q;
+      background: white;
+      border: 1px solid rgba(8,8,15,0.08);
+      border-radius: 18px;
+      padding: 16px 18px;
+      font-weight: 800;
+      letter-spacing: -0.025em;
+      display: flex;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .question::before {
+      content: counter(q);
+      width: 24px;
+      height: 24px;
+      flex: 0 0 24px;
+      display: grid;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--ink);
+      color: white;
+      font-size: 12px;
+      font-weight: 950;
+    }
+
+    .final {
+      text-align: center;
+      padding-top: 40px;
+      padding-bottom: 110px;
+    }
+
+    .final h2 { max-width: 900px; margin: 0 auto 24px; }
+    .final p { max-width: 680px; margin: 0 auto 30px; }
+
+    footer {
+      border-top: 1px solid rgba(8,8,15,0.08);
+      padding: 34px 22px;
+      color: rgba(8,8,15,0.55);
+      font-size: 14px;
+    }
+
+    .footer-inner {
+      max-width: var(--max);
+      margin: 0 auto;
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 900px) {
+      .nav a:not(.button) { display: none; }
+      .hero, .section-head, .split, .diag-grid, .price-wrap, .form-block { grid-template-columns: 1fr; }
+      .grid-3 { grid-template-columns: 1fr; }
+      .hero { padding-top: 54px; }
+      .proof-inner { min-height: 420px; }
+      .price.featured { transform: none; }
+      section { padding: 62px 18px; }
+      .diagnostic, .form-block { padding: 28px; border-radius: 28px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="topbar-inner">
+      <a class="brand" href="#top" aria-label="KP Inner Circle">
+        <span class="logo">KP</span>
+        <span>Inner Circle</span>
+      </a>
+      <nav class="nav" aria-label="Navigation">
+        <a href="#format">Format</a>
+        <a href="#prix">Prix</a>
+        <a href="#candidature" class="button">Demander l’accès</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div>
+        <div class="kicker">Candidature uniquement</div>
+        <h1>KP Inner Circle</h1>
+        <p class="hero-lead">Pour les fondateurs d’expertise qui font déjà 1M€ par an minimum.</p>
+        <p class="hero-copy">Une office hour hebdomadaire avec Jeremy. Un accès prioritaire aux événements présentiels KP. Une pièce pour prendre de meilleurs arbitrages quand ton business est déjà trop gros pour être piloté au feeling.</p>
+        <div class="hero-actions">
+          <a class="button" href="#candidature">Demander l’accès</a>
+          <a class="button secondary" href="#prix">Voir les conditions</a>
+        </div>
+      </div>
+
+      <aside class="proof-card" aria-label="Résumé de l’offre">
+        <div class="proof-inner">
+          <span class="tag">1M€ / an minimum</span>
+          <div class="metric">
+            <div class="metric-row">
+              <strong>1h / semaine</strong>
+              <span>office hour avec Jeremy</span>
+            </div>
+            <div class="metric-row">
+              <strong>2,5K€ HT / mois</strong>
+              <span>engagement minimum 3 mois</span>
+            </div>
+            <div class="metric-row">
+              <strong>12K€ HT</strong>
+              <span>pour 6 mois</span>
+            </div>
+          </div>
+          <span class="tag">Accès prioritaire events KP</span>
+        </div>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Ce n’est pas une formation.</h2>
+        <p>À ce niveau, ton problème n’est plus l’information. Tu as déjà vendu. Tu as déjà prouvé le marché. Maintenant, le sujet, c’est la qualité de tes décisions.</p>
+      </div>
+      <div class="grid-3">
+        <article class="card">
+          <h3>Moins de flou.</h3>
+          <p>Tu viens avec un problème réel. Offre, acquisition, organique, marge, équipe, delivery, repositionnement. On attaque ce qui coûte cher.</p>
+        </article>
+        <article class="card">
+          <h3>Moins de solitude.</h3>
+          <p>Pas une communauté de motivation. Une pièce de fondateurs qui ont déjà quelque chose à perdre et qui savent appliquer.</p>
+        </article>
+        <article class="card dark">
+          <h3>Moins d’excuses.</h3>
+          <p>Tu ne viens pas consommer. Tu viens décider. Si tu veux une bibliothèque de vidéos, ce n’est pas la bonne offre.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="diagnostic">
+        <div class="section-head" style="margin-bottom: 20px;">
+          <h2>À 1M€/an, le jeu change.</h2>
+          <p style="color: rgba(255,255,255,0.72);">Tu peux continuer à grossir tout en devenant plus fragile. Plus de clients. Plus d’équipe. Plus de coûts fixes. Plus de décisions qui coûtent cher quand elles sont mal prises.</p>
+        </div>
+        <div class="diag-grid">
+          <div class="diag-box">
+            <strong>Problème apparent</strong>
+            <p>L’acquisition coûte plus cher, l’offre fatigue, l’équipe demande plus d’attention, la conversion baisse.</p>
+          </div>
+          <div class="diag-box">
+            <strong>Vraie contrainte</strong>
+            <p>Le fondateur continue souvent à porter trop de décisions critiques seul, trop longtemps.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="format">
+      <div class="section-head">
+        <h2>Ce que tu obtiens.</h2>
+        <p>Le format est volontairement simple. Pas de fausse abondance. Pas de bonus empilés pour justifier le prix.</p>
+      </div>
+      <div class="split">
+        <article class="card">
+          <span class="tag" style="background: var(--blue); margin-bottom: 20px;">Chaque semaine</span>
+          <h3>1 office hour hebdomadaire avec Jeremy</h3>
+          <ul>
+            <li>Tu viens avec le vrai sujet du moment.</li>
+            <li>Tu repars avec un arbitrage, une direction ou une correction.</li>
+            <li>Le but n’est pas de t’occuper. Le but est de te faire décider plus proprement.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <span class="tag" style="background: var(--mint); margin-bottom: 20px;">Présentiel</span>
+          <h3>Accès prioritaire aux événements KP</h3>
+          <ul>
+            <li>Priorité quand KP organise un événement présentiel.</li>
+            <li>Accès aux bonnes conversations, avec les bons profils.</li>
+            <li>Parce que certaines décisions ne se règlent pas dans un Notion.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Pour qui.</h2>
+        <p>Le seuil n’est pas là pour faire premium. Il est là parce qu’en dessous, les problèmes ne sont pas les mêmes.</p>
+      </div>
+      <div class="split">
+        <article class="card">
+          <h3>Bon fit</h3>
+          <ul>
+            <li>Tu fais 1M€ par an minimum.</li>
+            <li>Tu vends de l’expertise, du coaching, de la formation, du conseil ou un modèle proche.</li>
+            <li>Tu as déjà une vraie traction.</li>
+            <li>Tu veux des retours directs, pas des encouragements décoratifs.</li>
+            <li>Tu sais appliquer sans qu’on te tienne par la main.</li>
+          </ul>
+        </article>
+        <article class="card">
+          <h3>Pas le bon fit</h3>
+          <ul>
+            <li>Tu cherches ton premier produit.</li>
+            <li>Tu veux un accompagnement pas à pas.</li>
+            <li>Tu veux consommer du contenu.</li>
+            <li>Tu viens chercher une communauté pour compenser ton manque d’exécution.</li>
+            <li>Tu n’es pas prêt à entendre que le problème vient parfois de ton niveau d’exigence.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="prix">
+      <div class="section-head">
+        <h2>Investissement.</h2>
+        <p>Tu ne paies pas pour du volume. Tu paies pour une pièce, une fréquence, et des arbitrages plus propres.</p>
+      </div>
+      <div class="price-wrap">
+        <article class="price">
+          <small>Option mensuelle</small>
+          <h3>2,5K€ HT / mois</h3>
+          <p>Engagement minimum 3 mois. Soit 7,5K€ HT minimum.</p>
+        </article>
+        <article class="price featured">
+          <small>Option 6 mois</small>
+          <h3>12K€ HT</h3>
+          <p>Pour les fondateurs qui veulent rester assez longtemps dans la pièce pour corriger les bons sujets, pas juste venir chercher une réponse ponctuelle.</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <div class="section-head">
+        <h2>Pourquoi ça peut coûter beaucoup plus cher de ne pas y être.</h2>
+        <p>À 1M€/an, une mauvaise décision ne coûte pas 200€. Elle peut coûter un trimestre de marge, un mauvais recrutement, une offre qui cannibalise le reste ou une baisse de conversion mal diagnostiquée.</p>
+      </div>
+      <div class="card dark">
+        <h3>Le prix de l’Inner Circle n’est pas comparé à une formation.</h3>
+        <p>Il est comparé au coût d’un mauvais arbitrage. Et à ce niveau, ce coût-là est rarement petit.</p>
+      </div>
+    </section>
+
+    <section id="candidature">
+      <div class="form-block">
+        <div>
+          <div class="kicker">Accès sur fit</div>
+          <h2>Demander l’accès.</h2>
+          <p class="large-p">L’Inner Circle n’est pas ouvert à tout le monde. Pas par posture. Par hygiène. Si la pièce est remplie de mauvais profils, elle perd sa valeur pour ceux qui jouent sérieusement.</p>
+          <p style="margin-top: 24px; color: rgba(8,8,15,0.66);">Pour candidater, envoie ces éléments à Jeremy. Si le fit est bon, on te dira comment entrer. Si ce n’est pas le bon moment, on te le dira aussi.</p>
+          <a class="button" href="mailto:?subject=Candidature%20KP%20Inner%20Circle&body=Business%20%3A%0AChiffre%20d%E2%80%99affaires%20annuel%20%3A%0AMod%C3%A8le%20%C3%A9conomique%20%3A%0ATaille%20de%20l%E2%80%99%C3%A9quipe%20%3A%0AProbl%C3%A8me%20principal%20des%2090%20prochains%20jours%20%3A%0APourquoi%20l%E2%80%99Inner%20Circle%20maintenant%20%3A" style="margin-top: 26px;">Préparer ma candidature</a>
+        </div>
+        <div class="questions">
+          <div class="question">Ton business</div>
+          <div class="question">Ton chiffre d’affaires annuel actuel</div>
+          <div class="question">Ton modèle économique</div>
+          <div class="question">La taille de ton équipe</div>
+          <div class="question">Ton problème principal des 90 prochains jours</div>
+          <div class="question">Pourquoi l’Inner Circle maintenant</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="final">
+      <h2>Pas besoin de faire semblant.</h2>
+      <p class="large-p">Si tu es au bon niveau, on regarde si ça a du sens. Si tu ne l’es pas, ce n’est pas la bonne pièce.</p>
+      <a class="button" href="#candidature">Demander l’accès</a>
+    </section>
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+      <span>KP Inner Circle</span>
+      <span>Pour fondateurs d’expertise à 1M€ par an minimum.</span>
+    </div>
+  </footer>
+</body>
+</html>
