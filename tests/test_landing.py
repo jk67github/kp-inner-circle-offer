@@ -9,6 +9,23 @@ ROOT = Path(__file__).resolve().parents[1]
 HTML_PATH = ROOT / "index.html"
 
 
+def relative_luminance(hex_color):
+    channels = [int(hex_color[index:index + 2], 16) / 255 for index in (1, 3, 5)]
+    linear = [
+        channel / 12.92 if channel <= 0.04045 else ((channel + 0.055) / 1.055) ** 2.4
+        for channel in channels
+    ]
+    return 0.2126 * linear[0] + 0.7152 * linear[1] + 0.0722 * linear[2]
+
+
+def contrast_ratio(foreground, background):
+    lighter, darker = sorted(
+        (relative_luminance(foreground), relative_luminance(background)),
+        reverse=True,
+    )
+    return (lighter + 0.05) / (darker + 0.05)
+
+
 class LandingParser(HTMLParser):
     def __init__(self):
         super().__init__()
@@ -98,6 +115,20 @@ class LandingPageTests(unittest.TestCase):
     def test_application_questions_are_an_ordered_list(self):
         self.assertRegex(self.html, r'<ol class="questions">[\s\S]*?</ol>')
         self.assertEqual(len(re.findall(r'<li class="question">', self.html)), 6)
+
+    def test_footer_text_has_safe_wcag_contrast(self):
+        tokens = dict(re.findall(r"--([\w-]+):\s*(#[0-9a-fA-F]{6});", self.html))
+        footer_match = re.search(r"footer\s*\{([^}]+)\}", self.html)
+        if footer_match is None:
+            self.fail("Footer CSS rule is missing")
+        footer_css = footer_match.group(1)
+
+        self.assertRegex(footer_css, r"background:\s*var\(--white\)")
+        self.assertRegex(footer_css, r"color:\s*var\(--footer-text\)")
+        self.assertGreaterEqual(
+            contrast_ratio(tokens["footer-text"], tokens["white"]),
+            6.0,
+        )
 
 
 if __name__ == "__main__":
