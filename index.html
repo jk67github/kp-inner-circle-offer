@@ -26,6 +26,8 @@
 
     html { scroll-behavior: smooth; }
 
+    html:focus-within { scroll-behavior: smooth; }
+
     body {
       margin: 0;
       font-family: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
@@ -38,6 +40,25 @@
     }
 
     a { color: inherit; text-decoration: none; }
+
+    a:focus-visible {
+      outline: 3px solid var(--blue);
+      outline-offset: 4px;
+    }
+
+    .skip-link {
+      position: fixed;
+      top: 10px;
+      left: 10px;
+      z-index: 20;
+      padding: 10px 14px;
+      border-radius: 8px;
+      background: var(--ink);
+      color: var(--white);
+      transform: translateY(-150%);
+    }
+
+    .skip-link:focus { transform: translateY(0); }
 
     .topbar {
       position: sticky;
@@ -124,6 +145,7 @@
       max-width: var(--max);
       margin: 0 auto;
       padding: 92px 22px;
+      scroll-margin-top: 80px;
     }
 
     .hero {
@@ -438,6 +460,9 @@
       display: grid;
       gap: 12px;
       counter-reset: q;
+      margin: 0;
+      padding: 0;
+      list-style: none;
     }
 
     .question {
@@ -502,16 +527,22 @@
       section { padding: 62px 18px; }
       .diagnostic, .form-block { padding: 28px; border-radius: 28px; }
     }
+
+    @media (prefers-reduced-motion: reduce) {
+      html, html:focus-within { scroll-behavior: auto; }
+      .button { transition: none; }
+    }
   </style>
 </head>
 <body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
   <header class="topbar">
     <div class="topbar-inner">
-      <a class="brand" href="#top" aria-label="KP Inner Circle">
+      <a class="brand" href="#contenu" aria-label="KP Inner Circle — retour en haut">
         <span class="logo">KP</span>
         <span>Inner Circle</span>
       </a>
-      <nav class="nav" aria-label="Navigation">
+      <nav class="nav" aria-label="Navigation principale">
         <a href="#format">Format</a>
         <a href="#prix">Prix</a>
         <a href="#candidature" class="button">Demander l’accès</a>
@@ -519,13 +550,13 @@
     </div>
   </header>
 
-  <main id="top">
+  <main id="contenu">
     <section class="hero">
       <div>
         <div class="kicker">Candidature uniquement</div>
         <h1>KP Inner Circle</h1>
         <p class="hero-lead">Pour les fondateurs d’expertise qui font déjà 1M€ par an minimum.</p>
-        <p class="hero-copy">Une office hour hebdomadaire avec Jeremy. Un accès prioritaire aux événements présentiels KP. Une pièce pour prendre de meilleurs arbitrages quand ton business est déjà trop gros pour être piloté au feeling.</p>
+        <p class="hero-copy">Un office hour hebdomadaire avec Jeremy Kohlmann. Un accès prioritaire aux événements présentiels KP. Un espace pour prendre de meilleurs arbitrages quand ton business est déjà trop gros pour être piloté au feeling.</p>
         <div class="hero-actions">
           <a class="button" href="#candidature">Demander l’accès</a>
           <a class="button secondary" href="#prix">Voir les conditions</a>
@@ -549,7 +580,7 @@
               <span>pour 6 mois</span>
             </div>
           </div>
-          <span class="tag">Accès prioritaire events KP</span>
+          <span class="tag">Accès prioritaire aux événements KP</span>
         </div>
       </aside>
     </section>
@@ -566,7 +597,7 @@
         </article>
         <article class="card">
           <h3>Moins de solitude.</h3>
-          <p>Pas une communauté de motivation. Une pièce de fondateurs qui ont déjà quelque chose à perdre et qui savent appliquer.</p>
+          <p>Pas une communauté de motivation. Un groupe de fondateurs qui ont déjà quelque chose à perdre et qui savent appliquer.</p>
         </article>
         <article class="card dark">
           <h3>Moins d’excuses.</h3>
@@ -628,7 +659,7 @@
       </div>
       <div class="split">
         <article class="card">
-          <h3>Bon fit</h3>
+          <h3>Profil adapté</h3>
           <ul>
             <li>Tu fais 1M€ par an minimum.</li>
             <li>Tu vends de l’expertise, du coaching, de la formation, du conseil ou un modèle proche.</li>
@@ -638,7 +669,7 @@
           </ul>
         </article>
         <article class="card">
-          <h3>Pas le bon fit</h3>
+          <h3>Profil non adapté</h3>
           <ul>
             <li>Tu cherches ton premier produit.</li>
             <li>Tu veux un accompagnement pas à pas.</li>
@@ -653,7 +684,7 @@
     <section id="prix">
       <div class="section-head">
         <h2>Investissement.</h2>
-        <p>Tu ne paies pas pour du volume. Tu paies pour une pièce, une fréquence, et des arbitrages plus propres.</p>
+        <p>Tu ne paies pas pour du volume. Tu paies pour un groupe, une fréquence et des arbitrages plus propres.</p>
       </div>
       <div class="price-wrap">
         <article class="price">
@@ -664,45 +695,44 @@
         <article class="price featured">
           <small>Option 6 mois</small>
           <h3>12K€ HT</h3>
-          <p>Pour les fondateurs qui veulent rester assez longtemps dans la pièce pour corriger les bons sujets, pas juste venir chercher une réponse ponctuelle.</p>
+          <p>Engagement de 6 mois, réglé 12K€ HT.</p>
         </article>
       </div>
     </section>
 
     <section>
       <div class="section-head">
-        <h2>Pourquoi ça peut coûter beaucoup plus cher de ne pas y être.</h2>
-        <p>À 1M€/an, une mauvaise décision ne coûte pas 200€. Elle peut coûter un trimestre de marge, un mauvais recrutement, une offre qui cannibalise le reste ou une baisse de conversion mal diagnostiquée.</p>
+        <h2 id="selection-title">Ce qu’on regarde.</h2>
+        <p>Le chiffre d’affaires est un seuil, pas une admission automatique. La sélection porte aussi sur le modèle, les sujets à arbitrer et la capacité à appliquer.</p>
       </div>
       <div class="card dark">
-        <h3>Le prix de l’Inner Circle n’est pas comparé à une formation.</h3>
-        <p>Il est comparé au coût d’un mauvais arbitrage. Et à ce niveau, ce coût-là est rarement petit.</p>
+        <h3>La qualité du groupe passe avant le volume.</h3>
+        <p>Une demande peut être refusée si le format n’est pas adapté. Aucun faux sentiment d’urgence, aucune admission par défaut.</p>
       </div>
     </section>
 
     <section id="candidature">
       <div class="form-block">
         <div>
-          <div class="kicker">Accès sur fit</div>
+          <div class="kicker">Accès sur sélection</div>
           <h2>Demander l’accès.</h2>
-          <p class="large-p">L’Inner Circle n’est pas ouvert à tout le monde. Pas par posture. Par hygiène. Si la pièce est remplie de mauvais profils, elle perd sa valeur pour ceux qui jouent sérieusement.</p>
-          <p style="margin-top: 24px; color: rgba(8,8,15,0.66);">Pour candidater, envoie ces éléments à Jeremy. Si le fit est bon, on te dira comment entrer. Si ce n’est pas le bon moment, on te le dira aussi.</p>
-          <a class="button" href="mailto:?subject=Candidature%20KP%20Inner%20Circle&body=Business%20%3A%0AChiffre%20d%E2%80%99affaires%20annuel%20%3A%0AMod%C3%A8le%20%C3%A9conomique%20%3A%0ATaille%20de%20l%E2%80%99%C3%A9quipe%20%3A%0AProbl%C3%A8me%20principal%20des%2090%20prochains%20jours%20%3A%0APourquoi%20l%E2%80%99Inner%20Circle%20maintenant%20%3A" style="margin-top: 26px;">Préparer ma candidature</a>
+          <p class="large-p">L’Inner Circle n’est pas ouvert à tout le monde. Pas par posture. Par cohérence. Si les profils sont incompatibles, le groupe perd sa valeur pour ceux qui jouent sérieusement.</p>
+          <p style="margin-top: 24px; color: rgba(8,8,15,0.66);">Pour demander l’accès, réponds par le canal privé qui t’a transmis cette page avec les éléments ci-contre. Si le format est adapté, tu recevras la suite. Sinon, on te le dira directement.</p>
         </div>
-        <div class="questions">
-          <div class="question">Ton business</div>
-          <div class="question">Ton chiffre d’affaires annuel actuel</div>
-          <div class="question">Ton modèle économique</div>
-          <div class="question">La taille de ton équipe</div>
-          <div class="question">Ton problème principal des 90 prochains jours</div>
-          <div class="question">Pourquoi l’Inner Circle maintenant</div>
-        </div>
+        <ol class="questions">
+          <li class="question">Ton business</li>
+          <li class="question">Ton chiffre d’affaires annuel actuel</li>
+          <li class="question">Ton modèle économique</li>
+          <li class="question">La taille de ton équipe</li>
+          <li class="question">Ton problème principal des 90 prochains jours</li>
+          <li class="question">Pourquoi l’Inner Circle maintenant</li>
+        </ol>
       </div>
     </section>
 
     <section class="final">
       <h2>Pas besoin de faire semblant.</h2>
-      <p class="large-p">Si tu es au bon niveau, on regarde si ça a du sens. Si tu ne l’es pas, ce n’est pas la bonne pièce.</p>
+      <p class="large-p">Si tu es au bon niveau, on regarde si ça a du sens. Sinon, ce n’est pas le bon format.</p>
       <a class="button" href="#candidature">Demander l’accès</a>
     </section>
   </main>
